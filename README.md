@@ -18,3 +18,10 @@ Usage:
 	// if err ...
 	b, err := cache.Get("thekey")
 	// if err ...
+
+TODO:
+-----
+
+* Validate keys.  Right now you get odd errors if you put slashes in your keys.  I didn't want to encode them in case it's useful to the developer to look for a file by key.
+
+* Provide a utility method to make a valid random key name.
