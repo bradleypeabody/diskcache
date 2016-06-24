@@ -103,6 +103,10 @@ func (c *DiskCache) cleanup() error {
 	files := make(FDataList, 0, 256)
 
 	err := filepath.Walk(c.Dir, func(p string, info os.FileInfo, err error) error {
+		// skip anything that we failed to read info on
+		if err != nil || info == nil {
+			return nil
+		}
 		if info.IsDir() {
 			return nil
 		}
@@ -114,6 +118,7 @@ func (c *DiskCache) cleanup() error {
 		return nil
 	})
 	if err != nil {
+		log.Printf("Diskcache.cleanup() got error: %v", err)
 		return nil
 	}
 
